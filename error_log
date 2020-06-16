@@ -1,0 +1,1 @@
+[14-Feb-2019 21:55:26 Asia/Jakarta] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/mule7148/public_html/demo/spk-saw-penentuanjurusan/inc/koneksi.php on line 6

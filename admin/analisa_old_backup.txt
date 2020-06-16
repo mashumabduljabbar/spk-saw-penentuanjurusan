@@ -1,0 +1,51 @@
+<tbody>
+            				<?php
+            				$nomor = 1;
+            				$query_nilai_prefensi = mysql_query("select * from klasifikasi, calonsiswa where klasifikasi.id_siswa=calonsiswa.id_siswa");
+            				while ($data_nilai_prefensi = mysql_fetch_array($query_nilai_prefensi)) {
+								
+            				$bobot_tkj = mysql_fetch_array(mysql_query("select * from kriteria_bobot where kode_jurusan='TKJ' "));
+            				$bobot_tav = mysql_fetch_array(mysql_query("select * from kriteria_bobot where kode_jurusan='TAV' "));
+            				$bobot_tab = mysql_fetch_array(mysql_query("select * from kriteria_bobot where kode_jurusan='TAB' "));
+            				$bobot_titl = mysql_fetch_array(mysql_query("select * from kriteria_bobot where kode_jurusan='TITL' "));
+							
+							$c1 = $data_nilai_prefensi['nilai_matematika']/$query_data_max['max1'];
+							$c2 = $data_nilai_prefensi['nilai_bahasaindonesia']/$query_data_max['max2'];
+							$c3 = $data_nilai_prefensi['nilai_bahasainggris']/$query_data_max['max3'];
+							$c4 = $data_nilai_prefensi['nilai_ipa']/$query_data_max['max4'];
+							$c5 = $data_nilai_prefensi['nilai_tik']/$query_data_max['max5'];
+							$c6 = $data_nilai_prefensi['minat_tkj']/$query_data_max['max6'];
+							$c7 = $data_nilai_prefensi['minat_tav']/$query_data_max['max7'];
+							$c8 = $data_nilai_prefensi['minat_tab']/$query_data_max['max8'];
+							$c9 = $data_nilai_prefensi['minat_titl']/$query_data_max['max9'];
+							
+							$nilai_tkj =	($bobot_tkj['c1']*$c1)+($bobot_tkj['c2']*$c2)+($bobot_tkj['c3']*$c3)+($bobot_tkj['c4']*$c4)+($bobot_tkj['c5']*$c5)+
+											($bobot_tkj['c6']*$c6)+($bobot_tkj['c7']*$c7)+($bobot_tkj['c8']*$c8)+($bobot_tkj['c9']*$c9);
+							$nilai_tav =	($bobot_tav['c1']*$c1)+($bobot_tav['c2']*$c2)+($bobot_tav['c3']*$c3)+($bobot_tav['c4']*$c4)+($bobot_tav['c5']*$c5)+
+											($bobot_tav['c6']*$c6)+($bobot_tav['c7']*$c7)+($bobot_tav['c8']*$c8)+($bobot_tav['c9']*$c9);
+							$nilai_tab =	($bobot_tab['c1']*$c1)+($bobot_tab['c2']*$c2)+($bobot_tab['c3']*$c3)+($bobot_tab['c4']*$c4)+($bobot_tab['c5']*$c5)+
+											($bobot_tab['c6']*$c6)+($bobot_tab['c7']*$c7)+($bobot_tab['c8']*$c8)+($bobot_tab['c9']*$c9);
+							$nilai_titl =	($bobot_titl['c1']*$c1)+($bobot_titl['c2']*$c2)+($bobot_titl['c3']*$c3)+($bobot_titl['c4']*$c4)+($bobot_titl['c5']*$c5)+
+											($bobot_titl['c6']*$c6)+($bobot_titl['c7']*$c7)+($bobot_titl['c8']*$c8)+($bobot_titl['c9']*$c9);
+            				
+							$tkj = round($nilai_tkj,2);
+							$tav = round($nilai_tav,2);
+							$tab = round($nilai_tab,2);
+							$titl = round($nilai_titl,2);
+							?>
+            				<tr>
+            					<td><?php echo $nomor; ?></td>
+            					<td><?php echo $data_nilai_prefensi['nama_siswa']; ?></td>
+            					<td><?php echo $tkj ;?></td>
+            					<td><?php echo $tav;?></td>
+            					<td><?php echo $tab;?></td>
+            					<td><?php echo $titl;?></td>
+            					<td>
+								<?php $nilaimax = max($tkj,$tav,$tab,$titl); 
+								echo $nilaimax;
+								?></td>
+            				</tr>
+            				<?php
+							$nomor++;
+							}	?>            				
+            			</tbody>
